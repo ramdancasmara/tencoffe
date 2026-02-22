@@ -9,7 +9,12 @@
                 <svg class="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
             </div>
             <h1 class="text-2xl font-extrabold text-coffee-800">Pesanan Berhasil!</h1>
-            <p class="text-coffee-500 mt-1">Nomor pesanan Anda:</p>
+            @if(session('success'))
+                <div class="bg-green-50 border border-green-200 text-green-700 rounded-xl px-4 py-3 mt-4 text-sm">
+                    {{ session('success') }}
+                </div>
+            @endif
+            <p class="text-coffee-500 mt-3">Nomor pesanan Anda:</p>
             <p class="text-2xl font-bold text-coffee-600 mt-1">{{ $order->order_number }}</p>
         </div>
 
@@ -61,8 +66,9 @@
             </div>
         </div>
 
-        <div class="text-center mt-6">
+        <div class="text-center mt-6 flex flex-col sm:flex-row gap-3 justify-center">
             <a href="{{ route('menu') }}" class="btn-primary px-8 py-3 rounded-xl">Pesan Lagi</a>
+            <a href="{{ route('order.track') }}" class="btn-outline px-8 py-3 rounded-xl">Lacak Pesanan</a>
         </div>
     </div>
 </div>

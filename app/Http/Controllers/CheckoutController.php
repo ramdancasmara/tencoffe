@@ -33,7 +33,7 @@ class CheckoutController extends Controller
             'order_type' => 'required|in:dine-in,pickup,delivery',
             'customer_address' => 'required_if:order_type,delivery|nullable|string',
             'notes' => 'nullable|string',
-            'payment_method' => 'required|in:manual,whatsapp',
+            'payment_method' => 'nullable|in:manual,whatsapp',
         ]);
 
         $cart = session('cart', []);
@@ -60,7 +60,7 @@ class CheckoutController extends Controller
             'subtotal' => $subtotal,
             'delivery_fee' => $deliveryFee,
             'total' => $total,
-            'payment_method' => $validated['payment_method'],
+            'payment_method' => $validated['payment_method'] ?? 'manual',
             'status' => 'pending',
         ]);
 
@@ -77,13 +77,8 @@ class CheckoutController extends Controller
 
         session()->forget('cart');
 
-        if ($validated['payment_method'] === 'whatsapp') {
-            $whatsappNumber = Setting::get('store_whatsapp', '');
-            $message = $this->buildWhatsAppMessage($order);
-            return redirect("https://wa.me/{$whatsappNumber}?text=" . urlencode($message));
-        }
-
-        return redirect()->route('order.status', $order->order_number);
+        return redirect()->route('order.status', $order->order_number)
+            ->with('success', 'Pesanan berhasil dibuat! Silakan lacak status pesanan Anda.');
     }
 
     private function resolveCart(array $cart): array

@@ -2,7 +2,7 @@
 @section('title', 'Checkout - TenCoffe')
 @section('content')
 
-<div class="pt-20 pb-16 min-h-screen bg-coffee-50" x-data="{ orderType: 'dine-in', paymentMethod: 'manual' }">
+<div class="pt-20 pb-16 min-h-screen bg-coffee-50" x-data="{ orderType: 'dine-in' }">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
         <h1 class="text-3xl font-extrabold text-coffee-800 mb-8">📝 Checkout</h1>
 
@@ -66,21 +66,11 @@
                         <textarea name="notes" rows="3" class="input-field" placeholder="Contoh: gula sedikit, es banyak...">{{ old('notes') }}</textarea>
                     </div>
 
-                    {{-- Payment Method --}}
-                    <div class="bg-white rounded-2xl p-6 shadow-sm">
-                        <h3 class="font-bold text-coffee-800 text-lg mb-4">Metode Pembayaran</h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <label @click="paymentMethod='manual'" :class="paymentMethod==='manual' ? 'border-coffee-600 bg-coffee-50' : 'border-gray-200'" class="cursor-pointer border-2 rounded-xl p-4 transition">
-                                <input type="radio" name="payment_method" value="manual" x-model="paymentMethod" class="hidden">
-                                <p class="font-bold text-sm text-coffee-800">💰 Bayar di Kasir</p>
-                                <p class="text-xs text-gray-500 mt-1">Bayar langsung di tempat</p>
-                            </label>
-                            <label @click="paymentMethod='whatsapp'" :class="paymentMethod==='whatsapp' ? 'border-coffee-600 bg-coffee-50' : 'border-gray-200'" class="cursor-pointer border-2 rounded-xl p-4 transition">
-                                <input type="radio" name="payment_method" value="whatsapp" x-model="paymentMethod" class="hidden">
-                                <p class="font-bold text-sm text-coffee-800">📱 Via WhatsApp</p>
-                                <p class="text-xs text-gray-500 mt-1">Pesan dikirim via WhatsApp</p>
-                            </label>
-                        </div>
+                    {{-- Payment Info --}}
+                    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6">
+                        <h3 class="font-bold text-coffee-800 text-lg mb-2">💰 Pembayaran</h3>
+                        <p class="text-sm text-gray-600">Pembayaran saat ini dilakukan secara langsung (COD/kasir). Pembayaran online akan segera tersedia.</p>
+                        <input type="hidden" name="payment_method" value="manual">
                     </div>
                 </div>
 
@@ -110,10 +100,7 @@
                             <span>Total</span>
                             <span x-text="orderType==='delivery' ? 'Rp {{ number_format($subtotal + $deliveryFee, 0, ',', '.') }}' : 'Rp {{ number_format($subtotal, 0, ',', '.') }}'"></span>
                         </div>
-                        <button type="submit" class="btn-primary w-full mt-6 py-3 text-center rounded-xl">
-                            <span x-show="paymentMethod==='whatsapp'">Kirim via WhatsApp</span>
-                            <span x-show="paymentMethod==='manual'">Buat Pesanan</span>
-                        </button>
+                        <button type="submit" class="btn-primary w-full mt-6 py-3 text-center rounded-xl">Buat Pesanan</button>
                         <a href="{{ route('cart') }}" class="block text-center text-sm text-coffee-500 hover:text-coffee-700 mt-3">← Kembali ke Keranjang</a>
                     </div>
                 </div>
