@@ -67,19 +67,28 @@ class SpecialEventController extends Controller
         $data = $request->only(['title', 'description', 'price']);
         $data['is_active'] = $request->boolean('is_active', true);
 
+        // Remove image
+        if ($request->input('remove_image') === '1' && !$request->hasFile('image')) {
+            $oldPath = public_path('images/' . $gallery->image);
+            if (File::exists($oldPath)) File::delete($oldPath);
+            $data['image'] = null;
+        }
+
+        // Upload new image
         if ($request->hasFile('image')) {
             // Delete old image
             $oldPath = public_path('images/' . $gallery->image);
             if (File::exists($oldPath)) File::delete($oldPath);
 
             $dir = public_path('images/special-event');
+            if (!File::exists($dir)) File::makeDirectory($dir, 0755, true);
             $filename = time() . '_' . uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
             $request->file('image')->move($dir, $filename);
             $data['image'] = 'special-event/' . $filename;
         }
 
         $gallery->update($data);
-        return redirect()->route('admin.special-event.index')->with('success', 'Gambar berhasil diperbarui.');
+        return redirect()->route('admin.special-event.index')->with('success', 'Menu berhasil diperbarui.');
     }
 
     public function destroyGallery(Gallery $gallery)

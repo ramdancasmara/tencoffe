@@ -73,17 +73,38 @@
         <p class="text-gray-500 text-sm mb-4">Kelola gambar, judul, deskripsi, dan harga menu yang sudah ada.</p>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             @forelse($galleries as $gallery)
-                <div class="bg-gray-50 rounded-xl overflow-hidden" x-data="{ changed: false }">
+                <div class="bg-gray-50 rounded-xl overflow-hidden" x-data="{ preview: null, removeImage: false }">
                     <form action="{{ route('admin.special-event.update', $gallery) }}" method="POST" enctype="multipart/form-data">
                         @csrf @method('PUT')
                         <div class="relative">
-                            <img src="{{ $gallery->image_url }}" class="w-full aspect-square object-cover" id="preview-{{ $gallery->id }}">
-                            <div x-show="changed" class="absolute top-2 left-2 bg-amber-500 text-white text-xs font-bold px-2 py-1 rounded-lg" style="display:none;">Foto baru dipilih</div>
-                            <label class="absolute bottom-2 right-2 bg-white/90 hover:bg-white text-coffee-700 text-xs font-medium px-3 py-1.5 rounded-lg cursor-pointer shadow transition">
-                                📷 Ganti Foto
-                                <input type="file" name="image" accept="image/*" class="hidden" @change="changed=true; document.getElementById('preview-{{ $gallery->id }}').src=URL.createObjectURL($event.target.files[0])">
-                            </label>
+                            {{-- Preview: show new image or existing --}}
+                            <template x-if="preview">
+                                <img :src="preview" class="w-full aspect-square object-cover">
+                            </template>
+                            <template x-if="!preview">
+                                <img src="{{ $gallery->image_url }}" class="w-full aspect-square object-cover">
+                            </template>
+
+                            {{-- Badge indicators --}}
+                            <div x-show="preview" class="absolute top-2 left-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-lg" style="display:none;">✓ Foto baru</div>
+                            <div x-show="removeImage && !preview" class="absolute inset-0 bg-black/50 flex items-center justify-center" style="display:none;">
+                                <span class="text-white font-bold text-sm">Foto akan dihapus</span>
+                            </div>
+
+                            {{-- Buttons --}}
+                            <div class="absolute bottom-2 right-2 flex gap-1">
+                                <label class="bg-white/90 hover:bg-white text-coffee-700 text-xs font-medium px-3 py-1.5 rounded-lg cursor-pointer shadow transition">
+                                    📷 Ganti
+                                    <input type="file" name="image" accept="image/*" class="hidden" @change="preview=URL.createObjectURL($event.target.files[0]); removeImage=false">
+                                </label>
+                                @if($gallery->image)
+                                <button type="button" @click="removeImage=!removeImage; if(removeImage) preview=null" :class="removeImage ? 'bg-red-500 text-white' : 'bg-white/90 text-red-500'" class="hover:bg-red-100 text-xs font-medium px-3 py-1.5 rounded-lg shadow transition">
+                                    🗑️
+                                </button>
+                                @endif
+                            </div>
                         </div>
+                        <input type="hidden" name="remove_image" :value="removeImage ? '1' : '0'">
                         <div class="p-3 space-y-2">
                             <input type="text" name="title" value="{{ $gallery->title }}" placeholder="Judul" class="input-field text-sm">
                             <textarea name="description" rows="2" placeholder="Deskripsi / isi paket" class="input-field text-xs">{{ $gallery->description }}</textarea>
