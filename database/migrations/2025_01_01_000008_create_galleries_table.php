@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('group'); // menu or special_event
             $table->foreignId('product_id')->nullable()->constrained()->nullOnDelete();
             $table->integer('price')->nullable();
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->integer('sort_order')->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
