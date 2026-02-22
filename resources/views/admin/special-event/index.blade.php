@@ -38,12 +38,17 @@
     <div class="card">
         <h3 class="font-bold text-coffee-800 text-lg mb-2">➕ Tambah Menu Baru</h3>
         <p class="text-gray-500 text-sm mb-4">Upload gambar untuk menambahkan menu event baru. Setiap gambar akan menjadi satu item menu.</p>
-        <form action="{{ route('admin.special-event.upload') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+        <form action="{{ route('admin.special-event.upload') }}" method="POST" enctype="multipart/form-data" class="space-y-4" x-data="{ previews: [] }">
             @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Gambar (multiple)</label>
-                    <input type="file" name="images[]" multiple accept="image/*" required class="input-field">
+                    <input type="file" name="images[]" multiple accept="image/*" required class="input-field" @change="previews = Array.from($event.target.files).map(f => URL.createObjectURL(f))">
+                    <div x-show="previews.length" class="flex flex-wrap gap-2 mt-2">
+                        <template x-for="(src, i) in previews" :key="i">
+                            <img :src="src" class="w-16 h-16 rounded-lg object-cover border-2 border-coffee-200">
+                        </template>
+                    </div>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Judul / Nama Paket</label>
@@ -68,14 +73,15 @@
         <p class="text-gray-500 text-sm mb-4">Kelola gambar, judul, deskripsi, dan harga menu yang sudah ada.</p>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             @forelse($galleries as $gallery)
-                <div class="bg-gray-50 rounded-xl overflow-hidden">
+                <div class="bg-gray-50 rounded-xl overflow-hidden" x-data="{ changed: false }">
                     <form action="{{ route('admin.special-event.update', $gallery) }}" method="POST" enctype="multipart/form-data">
                         @csrf @method('PUT')
                         <div class="relative">
                             <img src="{{ $gallery->image_url }}" class="w-full aspect-square object-cover" id="preview-{{ $gallery->id }}">
+                            <div x-show="changed" class="absolute top-2 left-2 bg-amber-500 text-white text-xs font-bold px-2 py-1 rounded-lg" style="display:none;">Foto baru dipilih</div>
                             <label class="absolute bottom-2 right-2 bg-white/90 hover:bg-white text-coffee-700 text-xs font-medium px-3 py-1.5 rounded-lg cursor-pointer shadow transition">
                                 📷 Ganti Foto
-                                <input type="file" name="image" accept="image/*" class="hidden" onchange="document.getElementById('preview-{{ $gallery->id }}').src=URL.createObjectURL(this.files[0])">
+                                <input type="file" name="image" accept="image/*" class="hidden" @change="changed=true; document.getElementById('preview-{{ $gallery->id }}').src=URL.createObjectURL($event.target.files[0])">
                             </label>
                         </div>
                         <div class="p-3 space-y-2">
