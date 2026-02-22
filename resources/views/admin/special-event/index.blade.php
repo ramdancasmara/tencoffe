@@ -36,7 +36,8 @@
 
     {{-- Upload --}}
     <div class="card">
-        <h3 class="font-bold text-coffee-800 text-lg mb-4">📤 Upload Gambar</h3>
+        <h3 class="font-bold text-coffee-800 text-lg mb-2">➕ Tambah Menu Baru</h3>
+        <p class="text-gray-500 text-sm mb-4">Upload gambar untuk menambahkan menu event baru. Setiap gambar akan menjadi satu item menu.</p>
         <form action="{{ route('admin.special-event.upload') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
             @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -63,28 +64,42 @@
 
     {{-- Gallery --}}
     <div class="card">
-        <h3 class="font-bold text-coffee-800 text-lg mb-4">🖼️ Gallery Gambar</h3>
+        <h3 class="font-bold text-coffee-800 text-lg mb-2">🖼️ Menu Event Saat Ini</h3>
+        <p class="text-gray-500 text-sm mb-4">Kelola gambar, judul, deskripsi, dan harga menu yang sudah ada.</p>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             @forelse($galleries as $gallery)
                 <div class="bg-gray-50 rounded-xl overflow-hidden">
-                    <img src="{{ $gallery->image_url }}" class="w-full aspect-square object-cover">
-                    <div class="p-3">
-                        <p class="font-medium text-coffee-800 text-sm">{{ $gallery->title ?? 'Tanpa judul' }}</p>
-                        @if($gallery->description)
-                            <p class="text-gray-500 text-xs mt-1 line-clamp-2">{{ $gallery->description }}</p>
-                        @endif
-                        @if($gallery->price)<p class="text-coffee-600 font-bold text-sm mt-1">{{ $gallery->formatted_price }}</p>@endif
-                        <span class="text-xs {{ $gallery->is_active ? 'text-green-600' : 'text-gray-400' }}">{{ $gallery->is_active ? 'Aktif' : 'Nonaktif' }}</span>
-                        <div class="flex gap-2 mt-2">
-                            <form action="{{ route('admin.special-event.destroy', $gallery) }}" method="POST" onsubmit="return confirm('Hapus gambar ini?')" class="flex-1">
-                                @csrf @method('DELETE')
-                                <button class="w-full text-center text-xs text-red-500 hover:text-red-700 py-1 border border-red-200 rounded-lg">Hapus</button>
-                            </form>
+                    <form action="{{ route('admin.special-event.update', $gallery) }}" method="POST" enctype="multipart/form-data">
+                        @csrf @method('PUT')
+                        <div class="relative">
+                            <img src="{{ $gallery->image_url }}" class="w-full aspect-square object-cover" id="preview-{{ $gallery->id }}">
+                            <label class="absolute bottom-2 right-2 bg-white/90 hover:bg-white text-coffee-700 text-xs font-medium px-3 py-1.5 rounded-lg cursor-pointer shadow transition">
+                                📷 Ganti Foto
+                                <input type="file" name="image" accept="image/*" class="hidden" onchange="document.getElementById('preview-{{ $gallery->id }}').src=URL.createObjectURL(this.files[0])">
+                            </label>
                         </div>
+                        <div class="p-3 space-y-2">
+                            <input type="text" name="title" value="{{ $gallery->title }}" placeholder="Judul" class="input-field text-sm">
+                            <textarea name="description" rows="2" placeholder="Deskripsi / isi paket" class="input-field text-xs">{{ $gallery->description }}</textarea>
+                            <input type="number" name="price" value="{{ $gallery->price }}" placeholder="Harga" class="input-field text-sm">
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" name="is_active" value="1" {{ $gallery->is_active ? 'checked' : '' }} class="rounded border-coffee-300 text-coffee-600">
+                                <span class="text-xs text-gray-600">Aktif</span>
+                            </label>
+                            <div class="flex gap-2 pt-1">
+                                <button type="submit" class="flex-1 text-center text-xs text-white bg-coffee-600 hover:bg-coffee-700 py-1.5 rounded-lg transition">Simpan</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="px-3 pb-3">
+                        <form action="{{ route('admin.special-event.destroy', $gallery) }}" method="POST" onsubmit="return confirm('Hapus menu ini?')">
+                            @csrf @method('DELETE')
+                            <button class="w-full text-center text-xs text-red-500 hover:text-red-700 py-1.5 border border-red-200 rounded-lg">Hapus Menu</button>
+                        </form>
                     </div>
                 </div>
             @empty
-                <p class="text-gray-400 text-sm col-span-full text-center py-4">Belum ada gambar</p>
+                <p class="text-gray-400 text-sm col-span-full text-center py-4">Belum ada menu event</p>
             @endforelse
         </div>
     </div>
