@@ -1,0 +1,77 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Inter', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-coffee-50: #fdf8f0;
+    --color-coffee-100: #f5e6d3;
+    --color-coffee-200: #e8c9a5;
+    --color-coffee-300: #d4a574;
+    --color-coffee-400: #c4884e;
+    --color-coffee-500: #b06e35;
+    --color-coffee-600: #9a562a;
+    --color-coffee-700: #7d4125;
+    --color-coffee-800: #5f3220;
+    --color-coffee-900: #3d1f14;
+}
+
+/* Custom utility classes */
+@utility card {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+}
+
+@utility input-field {
+    width: 100%;
+    padding: 0.625rem 1rem;
+    border: 1px solid var(--color-coffee-200);
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    &:focus {
+        border-color: var(--color-coffee-500);
+        box-shadow: 0 0 0 3px rgba(176,110,53,0.1);
+    }
+}
+
+@utility btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.625rem 1.5rem;
+    background-color: var(--color-coffee-600);
+    color: white;
+    font-weight: 600;
+    border-radius: 0.75rem;
+    transition: background-color 0.2s;
+    cursor: pointer;
+    &:hover {
+        background-color: var(--color-coffee-700);
+    }
+}
+
+@utility btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.625rem 1.5rem;
+    border: 2px solid var(--color-coffee-600);
+    color: var(--color-coffee-600);
+    font-weight: 600;
+    border-radius: 0.75rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    &:hover {
+        background-color: var(--color-coffee-600);
+        color: white;
+    }
+}
