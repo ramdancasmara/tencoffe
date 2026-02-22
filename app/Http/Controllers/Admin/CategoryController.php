@@ -9,10 +9,18 @@ use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::ordered()->withCount('products')->get();
-        return view('admin.categories.index', compact('categories'));
+        $perPage = $request->input('per_page', 10);
+        $query = Category::ordered()->withCount('products');
+
+        if ($perPage === 'all') {
+            $categories = $query->get();
+        } else {
+            $categories = $query->paginate((int) $perPage)->withQueryString();
+        }
+
+        return view('admin.categories.index', compact('categories', 'perPage'));
     }
 
     public function create()

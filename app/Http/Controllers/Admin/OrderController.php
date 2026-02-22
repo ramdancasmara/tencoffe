@@ -25,9 +25,15 @@ class OrderController extends Controller
             $query->where('status', $request->status);
         }
 
-        $orders = $query->latest()->paginate(15)->withQueryString();
+        $perPage = $request->input('per_page', 10);
 
-        return view('admin.orders.index', compact('orders'));
+        if ($perPage === 'all') {
+            $orders = $query->latest()->get();
+        } else {
+            $orders = $query->latest()->paginate((int) $perPage)->withQueryString();
+        }
+
+        return view('admin.orders.index', compact('orders', 'perPage'));
     }
 
     public function show(Order $order)

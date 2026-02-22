@@ -12,6 +12,12 @@
                     <option value="{{ $s }}" {{ request('status') == $s ? 'selected' : '' }}>{{ ucfirst($s) }}</option>
                 @endforeach
             </select>
+            <select name="per_page" class="input-field w-auto text-sm" onchange="this.form.submit()">
+                @foreach([10, 25, 50] as $pp)
+                    <option value="{{ $pp }}" {{ $perPage == $pp ? 'selected' : '' }}>{{ $pp }}</option>
+                @endforeach
+                <option value="all" {{ $perPage === 'all' ? 'selected' : '' }}>Semua</option>
+            </select>
             <button type="submit" class="btn-primary px-4 rounded-lg text-sm">Cari</button>
         </form>
     </div>
@@ -62,7 +68,9 @@
         </table>
     </div>
 
-    <div class="mt-4">{{ $orders->links() }}</div>
+    @if($perPage !== 'all' && $orders instanceof \Illuminate\Pagination\LengthAwarePaginator)
+        <div class="mt-4">{{ $orders->links() }}</div>
+    @endif
 </div>
 
 @endsection

@@ -62,7 +62,18 @@
 
 {{-- Recent Orders --}}
 <div class="card">
-    <h3 class="font-bold text-coffee-800 text-lg mb-4">Pesanan Terbaru</h3>
+    <div class="flex items-center justify-between mb-4">
+        <h3 class="font-bold text-coffee-800 text-lg">Pesanan Terbaru</h3>
+        <form method="GET" class="flex items-center gap-2">
+            <label class="text-sm text-gray-500">Tampilkan:</label>
+            <select name="per_page" onchange="this.form.submit()" class="input-field w-auto text-sm py-1 px-2">
+                @foreach([10, 25, 50] as $pp)
+                    <option value="{{ $pp }}" {{ $perPage == $pp ? 'selected' : '' }}>{{ $pp }}</option>
+                @endforeach
+                <option value="all" {{ $perPage === 'all' ? 'selected' : '' }}>Semua</option>
+            </select>
+        </form>
+    </div>
     <div class="overflow-x-auto">
         <table class="w-full text-sm">
             <thead>
@@ -89,6 +100,10 @@
             </tbody>
         </table>
     </div>
+
+    @if($perPage !== 'all' && $recentOrders instanceof \Illuminate\Pagination\LengthAwarePaginator)
+        <div class="mt-4">{{ $recentOrders->links() }}</div>
+    @endif
 </div>
 
 @endsection

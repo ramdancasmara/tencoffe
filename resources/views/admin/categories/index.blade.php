@@ -39,7 +39,18 @@
     {{-- List --}}
     <div class="lg:col-span-2">
         <div class="card">
-            <h3 class="font-bold text-coffee-800 mb-4">Daftar Kategori</h3>
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-bold text-coffee-800">Daftar Kategori</h3>
+                <form method="GET" class="flex items-center gap-2">
+                    <label class="text-sm text-gray-500">Tampilkan:</label>
+                    <select name="per_page" onchange="this.form.submit()" class="input-field w-auto text-sm py-1 px-2">
+                        @foreach([10, 25, 50] as $pp)
+                            <option value="{{ $pp }}" {{ $perPage == $pp ? 'selected' : '' }}>{{ $pp }}</option>
+                        @endforeach
+                        <option value="all" {{ $perPage === 'all' ? 'selected' : '' }}>Semua</option>
+                    </select>
+                </form>
+            </div>
             <div class="space-y-3">
                 @forelse($categories as $cat)
                     <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
@@ -63,6 +74,10 @@
                     <p class="text-center text-gray-400 py-4">Belum ada kategori</p>
                 @endforelse
             </div>
+
+            @if($perPage !== 'all' && $categories instanceof \Illuminate\Pagination\LengthAwarePaginator)
+                <div class="mt-4">{{ $categories->links() }}</div>
+            @endif
         </div>
     </div>
 </div>
