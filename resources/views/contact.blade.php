@@ -56,13 +56,6 @@
                             <p class="text-coffee-200 text-xs">WhatsApp Reservasi</p>
                         </div>
                     </a>
-                    <a href="mailto:tencoffeofficial@gmail.com" class="flex items-center gap-3 bg-white/10 hover:bg-white/20 rounded-xl p-3 transition">
-                        <div class="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center text-white flex-shrink-0">📧</div>
-                        <div>
-                            <p class="font-bold text-sm">tencoffeofficial@gmail.com</p>
-                            <p class="text-coffee-200 text-xs">Email resmi</p>
-                        </div>
-                    </a>
                 </div>
             </div>
         </div>
