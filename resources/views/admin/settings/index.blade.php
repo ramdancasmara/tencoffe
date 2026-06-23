@@ -26,6 +26,11 @@
                 <input type="text" name="operating_hours" value="{{ $general['operating_hours'] ?? 'Setiap hari, 09.00 - 01.00' }}" class="input-field">
             </div>
             <div class="md:col-span-2">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Link Google Maps</label>
+                <input type="text" name="google_maps_url" value="{{ $general['google_maps_url'] ?? '' }}" class="input-field" placeholder="https://www.google.com/maps/embed?...">
+                <p class="text-xs text-gray-400 mt-1">Gunakan link embed Google Maps agar bisa tampil langsung di halaman kontak.</p>
+            </div>
+            <div class="md:col-span-2">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Alamat</label>
                 <textarea name="address" rows="2" class="input-field">{{ $general['address'] ?? '' }}</textarea>
             </div>

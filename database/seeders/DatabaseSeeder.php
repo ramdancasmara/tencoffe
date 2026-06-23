@@ -264,6 +264,7 @@ class DatabaseSeeder extends Seeder
             ['key' => 'site_name', 'value' => 'TenCoffe', 'type' => 'text', 'group' => 'general'],
             ['key' => 'tagline', 'value' => 'Your Daily Coffee Partner', 'type' => 'text', 'group' => 'general'],
             ['key' => 'email', 'value' => 'tencoffeofficial@gmail.com', 'type' => 'text', 'group' => 'general'],
+            ['key' => 'google_maps_url', 'value' => '', 'type' => 'text', 'group' => 'general'],
             ['key' => 'address', 'value' => 'Jl. Kopi Susu No. 10, Jakarta Selatan', 'type' => 'text', 'group' => 'general'],
             ['key' => 'operating_hours', 'value' => 'Setiap hari, 09.00 - 01.00', 'type' => 'text', 'group' => 'general'],
 

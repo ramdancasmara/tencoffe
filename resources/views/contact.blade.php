@@ -44,19 +44,35 @@
                 </div>
             </div>
 
-            {{-- Reservasi --}}
-            <div class="bg-gradient-to-br from-coffee-700 to-coffee-800 rounded-2xl p-8 shadow-sm text-white">
-                <h3 class="font-bold text-xl mb-3">📋 Reservasi</h3>
-                <p class="text-coffee-200 text-sm mb-5">Untuk informasi lebih lanjut atau untuk reservasi, hubungi kami:</p>
-                <div class="space-y-3">
-                    <a href="https://wa.me/{{ $social['whatsapp'] ?? '6281170710041' }}" target="_blank" class="flex items-center gap-3 bg-white/10 hover:bg-white/20 rounded-xl p-3 transition">
-                        <div class="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center text-white flex-shrink-0">💬</div>
-                        <div>
-                            <p class="font-bold text-sm">0811-7071-0041</p>
-                            <p class="text-coffee-200 text-xs">WhatsApp Reservasi</p>
-                        </div>
-                    </a>
+            {{-- Google Maps --}}
+            <div class="bg-white rounded-2xl p-8 shadow-sm">
+                <div class="flex items-center justify-between gap-4 mb-4">
+                    <h3 class="font-bold text-coffee-800 text-xl">📍 Google Maps</h3>
+                    @if(!empty($general['google_maps_url']))
+                        <a href="{{ $general['google_maps_url'] }}" target="_blank" class="text-sm font-medium text-coffee-600 hover:text-coffee-800">Buka di Maps</a>
+                    @endif
                 </div>
+
+                @if(!empty($general['google_maps_url']))
+                    <div class="overflow-hidden rounded-2xl border border-coffee-100">
+                        <iframe
+                            src="{{ $general['google_maps_url'] }}"
+                            width="100%"
+                            height="360"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                        ></iframe>
+                    </div>
+                @else
+                    <div class="h-[360px] rounded-2xl border border-dashed border-coffee-200 bg-coffee-50 flex items-center justify-center text-center px-6">
+                        <div>
+                            <p class="font-semibold text-coffee-700">Link Google Maps belum diatur</p>
+                            <p class="text-sm text-gray-500 mt-1">Tambahkan link embed Google Maps di admin panel untuk menampilkan peta.</p>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
 
