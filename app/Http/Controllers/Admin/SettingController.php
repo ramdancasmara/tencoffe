@@ -21,7 +21,7 @@ class SettingController extends Controller
     public function update(Request $request)
     {
         $settings = [
-            'general' => ['site_name', 'tagline', 'email', 'phone', 'phone2', 'address', 'operating_hours'],
+            'general' => ['site_name', 'tagline', 'email', 'address', 'operating_hours'],
             'social' => ['instagram', 'tiktok', 'whatsapp'],
             'order' => ['store_whatsapp', 'min_order', 'delivery_fee'],
             'payment' => ['duitku_mode', 'duitku_merchant_code', 'duitku_api_key', 'duitku_enabled'],

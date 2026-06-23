@@ -14,16 +14,13 @@
             <div class="bg-white rounded-2xl p-8 shadow-sm">
                 <h3 class="font-bold text-coffee-800 text-xl mb-6">Informasi Kontak</h3>
                 <div class="space-y-4">
-                    @if(!empty($general['phone']))
-                        <div class="flex items-start gap-3">
-                            <div class="w-10 h-10 bg-coffee-100 rounded-xl flex items-center justify-center flex-shrink-0">📞</div>
-                            <div><p class="font-medium text-coffee-800">Telepon</p><p class="text-gray-500 text-sm">{{ $general['phone'] }}</p></div>
-                        </div>
-                    @endif
-                    @if(!empty($general['phone2']))
+                    @if(!empty($social['whatsapp']))
                         <div class="flex items-start gap-3">
                             <div class="w-10 h-10 bg-coffee-100 rounded-xl flex items-center justify-center flex-shrink-0">📱</div>
-                            <div><p class="font-medium text-coffee-800">Telepon 2</p><p class="text-gray-500 text-sm">{{ $general['phone2'] }}</p></div>
+                            <div>
+                                <p class="font-medium text-coffee-800">WhatsApp</p>
+                                <p class="text-gray-500 text-sm">{{ preg_replace('/^62/', '0', $social['whatsapp']) }}</p>
+                            </div>
                         </div>
                     @endif
                     @if(!empty($general['email']))
@@ -52,18 +49,11 @@
                 <h3 class="font-bold text-xl mb-3">📋 Reservasi</h3>
                 <p class="text-coffee-200 text-sm mb-5">Untuk informasi lebih lanjut atau untuk reservasi, hubungi kami:</p>
                 <div class="space-y-3">
-                    <a href="tel:+6281371635845" class="flex items-center gap-3 bg-white/10 hover:bg-white/20 rounded-xl p-3 transition">
-                        <div class="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center text-white flex-shrink-0">📞</div>
+                    <a href="https://wa.me/{{ $social['whatsapp'] ?? '6281170710041' }}" target="_blank" class="flex items-center gap-3 bg-white/10 hover:bg-white/20 rounded-xl p-3 transition">
+                        <div class="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center text-white flex-shrink-0">💬</div>
                         <div>
-                            <p class="font-bold text-sm">0813-7163-5845</p>
-                            <p class="text-coffee-200 text-xs">Telepon / WhatsApp</p>
-                        </div>
-                    </a>
-                    <a href="tel:+6281170855555" class="flex items-center gap-3 bg-white/10 hover:bg-white/20 rounded-xl p-3 transition">
-                        <div class="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center text-white flex-shrink-0">📱</div>
-                        <div>
-                            <p class="font-bold text-sm">0811-7085-555</p>
-                            <p class="text-coffee-200 text-xs">Telepon / WhatsApp</p>
+                            <p class="font-bold text-sm">0811-7071-0041</p>
+                            <p class="text-coffee-200 text-xs">WhatsApp Reservasi</p>
                         </div>
                     </a>
                     <a href="mailto:tencoffeofficial@gmail.com" class="flex items-center gap-3 bg-white/10 hover:bg-white/20 rounded-xl p-3 transition">

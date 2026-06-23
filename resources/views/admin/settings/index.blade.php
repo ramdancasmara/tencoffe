@@ -22,16 +22,8 @@
                 <input type="email" name="email" value="{{ $general['email'] ?? '' }}" class="input-field">
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Telepon</label>
-                <input type="text" name="phone" value="{{ $general['phone'] ?? '' }}" class="input-field">
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Telepon 2</label>
-                <input type="text" name="phone2" value="{{ $general['phone2'] ?? '' }}" class="input-field">
-            </div>
-            <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Jam Operasional</label>
-                <input type="text" name="operating_hours" value="{{ $general['operating_hours'] ?? '' }}" class="input-field">
+                <input type="text" name="operating_hours" value="{{ $general['operating_hours'] ?? 'Setiap hari, 09.00 - 01.00' }}" class="input-field">
             </div>
             <div class="md:col-span-2">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Alamat</label>

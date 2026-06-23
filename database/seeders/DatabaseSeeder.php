@@ -264,18 +264,16 @@ class DatabaseSeeder extends Seeder
             ['key' => 'site_name', 'value' => 'TenCoffe', 'type' => 'text', 'group' => 'general'],
             ['key' => 'tagline', 'value' => 'Your Daily Coffee Partner', 'type' => 'text', 'group' => 'general'],
             ['key' => 'email', 'value' => 'tencoffeofficial@gmail.com', 'type' => 'text', 'group' => 'general'],
-            ['key' => 'phone', 'value' => '0813-7163-5845', 'type' => 'text', 'group' => 'general'],
-            ['key' => 'phone2', 'value' => '0811-7085-555', 'type' => 'text', 'group' => 'general'],
             ['key' => 'address', 'value' => 'Jl. Kopi Susu No. 10, Jakarta Selatan', 'type' => 'text', 'group' => 'general'],
-            ['key' => 'operating_hours', 'value' => 'Senin - Minggu, 08:00 - 22:00', 'type' => 'text', 'group' => 'general'],
+            ['key' => 'operating_hours', 'value' => 'Setiap hari, 09.00 - 01.00', 'type' => 'text', 'group' => 'general'],
 
             // Social
             ['key' => 'instagram', 'value' => 'https://instagram.com/tencoffe', 'type' => 'text', 'group' => 'social'],
             ['key' => 'tiktok', 'value' => 'https://tiktok.com/@tencoffe', 'type' => 'text', 'group' => 'social'],
-            ['key' => 'whatsapp', 'value' => '6281371635845', 'type' => 'text', 'group' => 'social'],
+            ['key' => 'whatsapp', 'value' => '6281170710041', 'type' => 'text', 'group' => 'social'],
 
             // Order
-            ['key' => 'store_whatsapp', 'value' => '6281371635845', 'type' => 'text', 'group' => 'order'],
+            ['key' => 'store_whatsapp', 'value' => '6281170710041', 'type' => 'text', 'group' => 'order'],
             ['key' => 'min_order', 'value' => '0', 'type' => 'number', 'group' => 'order'],
             ['key' => 'delivery_fee', 'value' => '10000', 'type' => 'number', 'group' => 'order'],
 
