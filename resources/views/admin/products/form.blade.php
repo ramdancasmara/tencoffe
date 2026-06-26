@@ -71,6 +71,8 @@
                     </div>
                 @endif
                 <input type="file" name="image" accept="image/*" class="input-field">
+                <p class="text-xs text-gray-400 mt-1">Format: JPG, JPEG, PNG, WEBP, GIF. Maksimal 5MB.</p>
+                @error('image')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
             </div>
 
             {{-- Checkboxes --}}

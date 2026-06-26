@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\UploadedFile;
 
 class ProductController extends Controller
 {
@@ -44,7 +45,7 @@ class ProductController extends Controller
             'has_variants' => 'boolean',
             'price_hot' => 'required_if:has_variants,1|nullable|integer|min:0',
             'price_cold' => 'required_if:has_variants,1|nullable|integer|min:0',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|file|mimes:jpg,jpeg,png,webp,gif|max:5120',
             'is_active' => 'boolean',
             'is_featured' => 'boolean',
             'is_new' => 'boolean',
@@ -73,7 +74,7 @@ class ProductController extends Controller
         }
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('products', 'public');
+            $data['image'] = $this->storeProductImage($request->file('image'));
         }
 
         Product::create($data);
@@ -88,6 +89,24 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'description' => 'nullable|string',
+            'price' => 'required_without:has_variants|integer|min:0',
+            'has_variants' => 'boolean',
+            'price_hot' => 'required_if:has_variants,1|nullable|integer|min:0',
+            'price_cold' => 'required_if:has_variants,1|nullable|integer|min:0',
+            'image' => 'nullable|file|mimes:jpg,jpeg,png,webp,gif|max:5120',
+            'is_active' => 'boolean',
+            'is_featured' => 'boolean',
+            'is_new' => 'boolean',
+            'is_promo' => 'boolean',
+            'promo_price' => 'nullable|integer|min:0',
+            'is_seasonal' => 'boolean',
+            'seasonal_label' => 'nullable|string|max:50',
+        ]);
+
         $data = $request->only(['name', 'category_id', 'description', 'price', 'seasonal_label']);
         $data['has_variants'] = $request->boolean('has_variants');
         $data['is_active'] = $request->boolean('is_active', true);
@@ -107,16 +126,12 @@ class ProductController extends Controller
         }
 
         if ($request->hasFile('image')) {
-            if ($product->image && Storage::disk('public')->exists($product->image)) {
-                Storage::disk('public')->delete($product->image);
-            }
-            $data['image'] = $request->file('image')->store('products', 'public');
+            $this->deleteProductImage($product->image);
+            $data['image'] = $this->storeProductImage($request->file('image'));
         }
 
         if ($request->boolean('remove_image') && $product->image) {
-            if (Storage::disk('public')->exists($product->image)) {
-                Storage::disk('public')->delete($product->image);
-            }
+            $this->deleteProductImage($product->image);
             $data['image'] = null;
         }
 
@@ -126,10 +141,38 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        if ($product->image && Storage::disk('public')->exists($product->image)) {
-            Storage::disk('public')->delete($product->image);
-        }
+        $this->deleteProductImage($product->image);
         $product->delete();
         return redirect()->route('admin.products.index')->with('success', 'Produk berhasil dihapus.');
+    }
+
+    private function storeProductImage(UploadedFile $file): string
+    {
+        $targetDirectory = public_path('images/products');
+
+        if (!is_dir($targetDirectory)) {
+            mkdir($targetDirectory, 0755, true);
+        }
+
+        $filename = uniqid('prod_', true) . '.' . strtolower($file->getClientOriginalExtension());
+        $file->move($targetDirectory, $filename);
+
+        return 'products/' . $filename;
+    }
+
+    private function deleteProductImage(?string $path): void
+    {
+        if (!$path) {
+            return;
+        }
+
+        if (Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
+        }
+
+        $publicImagePath = public_path('images/' . $path);
+        if (file_exists($publicImagePath)) {
+            @unlink($publicImagePath);
+        }
     }
 }
