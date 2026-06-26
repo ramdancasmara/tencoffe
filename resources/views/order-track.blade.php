@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Lacak Pesanan - TenCoffe')
+@section('title', 'Lacak Pesanan - TenCoffee')
 @section('content')
 
 <div class="pt-20 pb-16 min-h-screen bg-coffee-50">

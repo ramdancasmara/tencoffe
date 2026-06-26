@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
     {
         // 1. Admin User
         User::create([
-            'name' => 'Admin TenCoffe',
-            'email' => 'admin@tencoffe.com',
+            'name' => 'Admin TenCoffee',
+            'email' => 'admin@TenCoffee.com',
             'password' => Hash::make('admin123'),
             'role' => 'admin',
         ]);
@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         $categories = [
             ['name' => 'Basic Coffee', 'description' => 'Kopi dasar pilihan', 'sort_order' => 1],
             ['name' => 'Coffee Flavour', 'description' => 'Kopi dengan aneka rasa', 'sort_order' => 2],
-            ['name' => 'Signature', 'description' => 'Racikan spesial TenCoffe', 'sort_order' => 3],
+            ['name' => 'Signature', 'description' => 'Racikan spesial TenCoffee', 'sort_order' => 3],
             ['name' => 'Non Coffee', 'description' => 'Minuman non-kopi', 'sort_order' => 4],
             ['name' => 'Beverages', 'description' => 'Aneka minuman segar', 'sort_order' => 5],
             ['name' => 'Maincourse', 'description' => 'Hidangan utama pilihan', 'sort_order' => 6],
@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
         $others = Category::where('slug', 'others')->first();
 
         // ============================================================
-        // 3. Products — sesuai menu asli TenCoffe
+        // 3. Products — sesuai menu asli TenCoffee
         // ============================================================
 
         // --- BASIC COFFEE (H/C variants) ---
@@ -108,7 +108,7 @@ class DatabaseSeeder extends Seeder
 
         // --- SIGNATURE (mostly cold-only, kecuali Sanger Coffee) ---
         $signatureProducts = [
-            ['name' => 'Ten Coffee', 'price' => 22000, 'description' => 'Racikan khas TenCoffe, wajib coba!'],
+            ['name' => 'Ten Coffee', 'price' => 22000, 'description' => 'Racikan khas TenCoffee, wajib coba!'],
             ['name' => 'Frapucino Choco', 'price' => 32000, 'description' => 'Frapucino coklat premium blend'],
             ['name' => 'Choco Beng', 'price' => 27000, 'description' => 'Coklat kopi blend spesial'],
             ['name' => 'Salted Popcorn', 'price' => 25000, 'description' => 'Kopi dengan rasa salted popcorn unik'],
@@ -187,7 +187,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Soup Iga w/ Steam Rice', 'price' => 54000, 'description' => 'Sup iga sapi empuk dengan nasi putih hangat'],
             ['name' => 'Chicken Brest Mashroom', 'price' => 49000, 'description' => 'Dada ayam panggang dengan saus jamur'],
             ['name' => 'Sauce Ribb', 'price' => 46000, 'description' => 'Iga bakar dengan saus spesial'],
-            ['name' => 'Nasi Goreng Special', 'price' => 49000, 'description' => 'Nasi goreng spesial khas TenCoffe'],
+            ['name' => 'Nasi Goreng Special', 'price' => 49000, 'description' => 'Nasi goreng spesial khas TenCoffee'],
             ['name' => 'Nasi Barendo Rica', 'price' => 39000, 'description' => 'Nasi dengan ayam barendo rica-rica pedas'],
             ['name' => 'Chicken Crispy Smash', 'price' => 33000, 'description' => 'Ayam crispy smash juicy'],
             ['name' => 'Mie Aceh Daging (Tumis/Goreng)', 'price' => 34000, 'description' => 'Mie Aceh daging sapi tumis atau goreng'],
@@ -261,16 +261,16 @@ class DatabaseSeeder extends Seeder
         // 4. Settings
         $settings = [
             // General
-            ['key' => 'site_name', 'value' => 'TenCoffe', 'type' => 'text', 'group' => 'general'],
+            ['key' => 'site_name', 'value' => 'TenCoffee', 'type' => 'text', 'group' => 'general'],
             ['key' => 'tagline', 'value' => 'Your Daily Coffee Partner', 'type' => 'text', 'group' => 'general'],
-            ['key' => 'email', 'value' => 'tencoffeofficial@gmail.com', 'type' => 'text', 'group' => 'general'],
+            ['key' => 'email', 'value' => 'TenCoffeeofficial@gmail.com', 'type' => 'text', 'group' => 'general'],
             ['key' => 'google_maps_url', 'value' => '', 'type' => 'text', 'group' => 'general'],
             ['key' => 'address', 'value' => 'Jl. Kopi Susu No. 10, Jakarta Selatan', 'type' => 'text', 'group' => 'general'],
             ['key' => 'operating_hours', 'value' => 'Setiap hari, 09.00 - 01.00', 'type' => 'text', 'group' => 'general'],
 
             // Social
-            ['key' => 'instagram', 'value' => 'https://instagram.com/tencoffe', 'type' => 'text', 'group' => 'social'],
-            ['key' => 'tiktok', 'value' => 'https://tiktok.com/@tencoffe', 'type' => 'text', 'group' => 'social'],
+            ['key' => 'instagram', 'value' => 'https://instagram.com/TenCoffee', 'type' => 'text', 'group' => 'social'],
+            ['key' => 'tiktok', 'value' => 'https://tiktok.com/@TenCoffee', 'type' => 'text', 'group' => 'social'],
             ['key' => 'whatsapp', 'value' => '6281170710041', 'type' => 'text', 'group' => 'social'],
 
             // Order

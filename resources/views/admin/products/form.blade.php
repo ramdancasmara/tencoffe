@@ -6,7 +6,19 @@
     <div class="card" x-data="{
         hasVariants: {{ isset($product) && $product->has_variants ? 'true' : 'false' }},
         isPromo: {{ isset($product) && $product->is_promo ? 'true' : 'false' }},
-        isSeasonal: {{ isset($product) && $product->is_seasonal ? 'true' : 'false' }}
+        isSeasonal: {{ isset($product) && $product->is_seasonal ? 'true' : 'false' }},
+        imagePreview: null,
+        pickImage(e) {
+            const file = e.target.files[0];
+            if (!file) { this.imagePreview = null; return; }
+            const reader = new FileReader();
+            reader.onload = ev => this.imagePreview = ev.target.result;
+            reader.readAsDataURL(file);
+        },
+        clearImage() {
+            this.imagePreview = null;
+            this.$refs.imageInput.value = '';
+        }
     }">
         <form action="{{ isset($product) ? route('admin.products.update', $product) : route('admin.products.store') }}"
               method="POST" enctype="multipart/form-data" class="space-y-6">
@@ -76,18 +88,32 @@
 
             {{-- Image --}}
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Gambar (Max 2MB)</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Gambar</label>
+
+                {{-- Existing image (edit mode) --}}
                 @if(isset($product) && $product->image)
                     <div class="mb-2 flex items-center gap-3">
-                        <img src="{{ $product->image_url }}" class="w-20 h-20 rounded-lg object-cover">
-                        <label class="text-sm text-red-500 flex items-center gap-1">
-                            <input type="checkbox" name="remove_image" value="1"> Hapus gambar
+                        <img src="{{ $product->image_url }}" class="w-20 h-20 rounded-lg object-cover border border-gray-200">
+                        <label class="text-sm text-red-500 flex items-center gap-1 cursor-pointer">
+                            <input type="checkbox" name="remove_image" value="1"> Hapus gambar saat ini
                         </label>
                     </div>
                 @endif
-                <input type="file" name="image" accept="image/*" class="input-field">
+
+                {{-- File picker --}}
+                <input type="file" name="image" accept="image/*" class="input-field"
+                       x-ref="imageInput" @change="pickImage($event)">
                 <p class="text-xs text-gray-400 mt-1">Format: JPG, JPEG, PNG, WEBP, GIF. Maksimal 5MB.</p>
                 @error('image')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+
+                {{-- New image preview --}}
+                <div x-show="imagePreview" class="mt-3 flex items-center gap-3">
+                    <img :src="imagePreview" class="w-20 h-20 rounded-lg object-cover border border-coffee-300 shadow-sm">
+                    <button type="button" @click="clearImage()"
+                            class="text-xs text-red-500 border border-red-300 hover:bg-red-50 px-3 py-1.5 rounded-lg transition">
+                        ✕ Hapus Pilihan
+                    </button>
+                </div>
             </div>
 
             {{-- Checkboxes --}}

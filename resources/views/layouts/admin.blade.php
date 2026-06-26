@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Admin - TenCoffe')</title>
+    <title>@yield('title', 'Admin - TenCoffee')</title>
     <link rel="icon" href="{{ asset('images/logo.jpeg') }}" type="image/jpeg">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet" />
@@ -16,9 +16,9 @@
         <aside class="fixed inset-y-0 left-0 z-50 w-64 bg-coffee-900 text-white transform transition-transform duration-300 md:translate-x-0"
                :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
             <div class="flex items-center gap-3 px-6 py-5 border-b border-coffee-700">
-                <img src="{{ asset('images/logo.jpeg') }}" alt="TenCoffe" class="w-10 h-10 rounded-full border-2 border-coffee-400">
+                <img src="{{ asset('images/logo.jpeg') }}" alt="TenCoffee" class="w-10 h-10 rounded-full border-2 border-coffee-400">
                 <div>
-                    <span class="font-bold text-lg">TenCoffe</span>
+                    <span class="font-bold text-lg">TenCoffee</span>
                     <p class="text-coffee-300 text-xs">Admin Panel</p>
                 </div>
             </div>

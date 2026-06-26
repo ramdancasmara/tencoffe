@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Menu - TenCoffe')
+@section('title', 'Menu - TenCoffee')
 @section('content')
 
 <div class="pt-20 pb-16 min-h-screen bg-coffee-50">

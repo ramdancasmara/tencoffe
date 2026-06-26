@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'TenCoffe - Kafe & Coffee Shop')</title>
+    <title>@yield('title', 'TenCoffee - Kafe & Coffee Shop')</title>
     <link rel="icon" href="{{ asset('images/logo.jpeg') }}" type="image/jpeg">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800" rel="stylesheet" />
@@ -36,8 +36,8 @@
             <div class="flex justify-between items-center h-16">
                 {{-- Logo --}}
                 <a href="{{ route('home') }}" class="flex items-center gap-3">
-                    <img src="{{ asset('images/logo.jpeg') }}" alt="TenCoffe" class="w-10 h-10 rounded-full border-2 border-coffee-300 shadow">
-                    <span class="font-bold text-lg" :class="scrolled ? 'text-coffee-800' : 'text-white'">TEN COFFE</span>
+                    <img src="{{ asset('images/logo.jpeg') }}" alt="TenCoffee" class="w-10 h-10 rounded-full border-2 border-coffee-300 shadow">
+                    <span class="font-bold text-lg" :class="scrolled ? 'text-coffee-800' : 'text-white'">TEN COFFEE</span>
                 </a>
 
                 {{-- Desktop Menu --}}
@@ -101,10 +101,10 @@
                 {{-- About --}}
                 <div>
                     <div class="flex items-center gap-3 mb-4">
-                        <img src="{{ asset('images/logo.jpeg') }}" alt="TenCoffe" class="w-12 h-12 rounded-full border-2 border-coffee-400">
-                        <span class="font-bold text-xl">TEN COFFE</span>
+                        <img src="{{ asset('images/logo.jpeg') }}" alt="TenCoffee" class="w-12 h-12 rounded-full border-2 border-coffee-400">
+                        <span class="font-bold text-xl">TEN COFFEE</span>
                     </div>
-                    <p class="text-coffee-200 text-sm leading-relaxed">Nikmati kopi berkualitas tinggi dan makanan lezat di TenCoffe. Tempat nongkrong terbaik dengan suasana yang nyaman.</p>
+                    <p class="text-coffee-200 text-sm leading-relaxed">Nikmati kopi berkualitas tinggi dan makanan lezat di TenCoffee. Tempat nongkrong terbaik dengan suasana yang nyaman.</p>
                 </div>
 
                 {{-- Quick Links --}}
@@ -157,7 +157,7 @@
                 </div>
             </div>
             <div class="border-t border-coffee-700 pt-6 text-center text-coffee-300 text-sm">
-                &copy; {{ date('Y') }} TenCoffe. All rights reserved.
+                &copy; {{ date('Y') }} TenCoffee. All rights reserved.
             </div>
         </div>
     </footer>

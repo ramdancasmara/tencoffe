@@ -1,13 +1,13 @@
 @extends('layouts.app')
-@section('title', 'TenCoffe - Kafe & Coffee Shop')
+@section('title', 'TenCoffee - Kafe & Coffee Shop')
 @section('content')
 
 {{-- Hero Section --}}
 <section class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-coffee-900 via-coffee-800 to-coffee-700 overflow-hidden">
     <div class="absolute inset-0 bg-black/30"></div>
     <div class="relative z-10 text-center px-4">
-        <img src="{{ asset('images/logo.jpeg') }}" alt="TenCoffe" class="w-28 h-28 mx-auto rounded-full border-4 border-coffee-300 shadow-2xl mb-6">
-        <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-4 tracking-tight">TEN COFFE</h1>
+        <img src="{{ asset('images/logo.jpeg') }}" alt="TenCoffee" class="w-28 h-28 mx-auto rounded-full border-4 border-coffee-300 shadow-2xl mb-6">
+        <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-4 tracking-tight">TEN COFFEE</h1>
         <p class="text-xl md:text-2xl text-coffee-200 mb-2 font-medium">Brewing Happiness, One Cup at a Time</p>
         <p class="text-coffee-300 mb-8 max-w-xl mx-auto">Nikmati kopi berkualitas tinggi dan makanan lezat. Pesan langsung dari meja atau delivery ke lokasi Anda.</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">

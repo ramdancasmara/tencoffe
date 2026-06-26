@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - TenCoffe</title>
+    <title>Admin Login - TenCoffee</title>
     <link rel="icon" href="{{ asset('images/logo.jpeg') }}" type="image/jpeg">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet" />
@@ -12,8 +12,8 @@
 <body class="bg-gradient-to-br from-coffee-800 to-coffee-900 min-h-screen flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8">
         <div class="text-center mb-8">
-            <img src="{{ asset('images/logo.jpeg') }}" alt="TenCoffe" class="w-20 h-20 mx-auto rounded-full border-4 border-coffee-200 shadow-lg mb-4">
-            <h1 class="text-2xl font-extrabold text-coffee-800">TenCoffe Admin</h1>
+            <img src="{{ asset('images/logo.jpeg') }}" alt="TenCoffee" class="w-20 h-20 mx-auto rounded-full border-4 border-coffee-200 shadow-lg mb-4">
+            <h1 class="text-2xl font-extrabold text-coffee-800">TenCoffee Admin</h1>
             <p class="text-coffee-400 text-sm mt-1">Masuk ke panel admin</p>
         </div>
 

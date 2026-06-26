@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Checkout - TenCoffe')
+@section('title', 'Checkout - TenCoffee')
 @section('content')
 
 <div class="pt-20 pb-16 min-h-screen bg-coffee-50" x-data="{ orderType: 'dine-in' }">
