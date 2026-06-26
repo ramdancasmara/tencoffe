@@ -20,8 +20,7 @@
     <div class="overflow-x-auto">
         <table class="w-full text-sm">
             <thead>
-                <tr class="border-b border-gray-100">
-                    <th class="text-left py-3 px-2 text-gray-500 font-medium">Gambar</th>
+                <tr class="border-b border-gray-100">                    <th class="text-left py-3 px-2 text-gray-500 font-medium">Urutan</th>                    <th class="text-left py-3 px-2 text-gray-500 font-medium">Gambar</th>
                     <th class="text-left py-3 px-2 text-gray-500 font-medium">Nama</th>
                     <th class="text-left py-3 px-2 text-gray-500 font-medium">Kategori</th>
                     <th class="text-left py-3 px-2 text-gray-500 font-medium">Harga</th>
@@ -33,6 +32,9 @@
                 @php $productList = is_a($products, 'Illuminate\Pagination\LengthAwarePaginator') ? $products : $products; @endphp
                 @forelse($productList as $product)
                     <tr class="border-b border-gray-50 hover:bg-gray-50">
+                        <td class="py-3 px-2 text-center">
+                            <span class="inline-block w-8 h-8 bg-coffee-100 text-coffee-700 text-xs font-bold rounded-lg flex items-center justify-center">{{ $product->sort_order }}</span>
+                        </td>
                         <td class="py-3 px-2"><img src="{{ $product->image_url }}" class="w-12 h-12 rounded-lg object-cover"></td>
                         <td class="py-3 px-2 font-medium text-coffee-800">{{ $product->name }}</td>
                         <td class="py-3 px-2 text-gray-500">{{ $product->category->name ?? '-' }}</td>
@@ -65,7 +67,7 @@
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="6" class="py-8 text-center text-gray-400">Belum ada produk</td></tr>
+                    <tr><td colspan="7" class="py-8 text-center text-gray-400">Belum ada produk</td></tr>
                 @endforelse
             </tbody>
         </table>

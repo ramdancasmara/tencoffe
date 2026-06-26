@@ -53,6 +53,7 @@ class ProductController extends Controller
             'promo_price' => 'nullable|integer|min:0',
             'is_seasonal' => 'boolean',
             'seasonal_label' => 'nullable|string|max:50',
+            'sort_order' => 'nullable|integer|min:0',
         ]);
 
         $data = $request->only(['name', 'category_id', 'description', 'price', 'seasonal_label']);
@@ -63,6 +64,7 @@ class ProductController extends Controller
         $data['is_promo'] = $request->boolean('is_promo');
         $data['is_seasonal'] = $request->boolean('is_seasonal');
         $data['promo_price'] = $request->is_promo ? $request->promo_price : null;
+        $data['sort_order'] = (int) $request->input('sort_order', 0);
 
         if ($data['has_variants']) {
             $data['price_hot'] = (int) $request->price_hot;
@@ -106,6 +108,7 @@ class ProductController extends Controller
             'promo_price' => 'nullable|integer|min:0',
             'is_seasonal' => 'boolean',
             'seasonal_label' => 'nullable|string|max:50',
+            'sort_order' => 'nullable|integer|min:0',
         ]);
 
         $data = $request->only(['name', 'category_id', 'description', 'price', 'seasonal_label']);
@@ -116,6 +119,7 @@ class ProductController extends Controller
         $data['is_promo'] = $request->boolean('is_promo');
         $data['is_seasonal'] = $request->boolean('is_seasonal');
         $data['promo_price'] = $request->is_promo ? $request->promo_price : null;
+        $data['sort_order'] = (int) $request->input('sort_order', $product->sort_order);
 
         if ($data['has_variants']) {
             $data['price_hot'] = (int) $request->price_hot;

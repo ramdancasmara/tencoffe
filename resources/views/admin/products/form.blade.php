@@ -128,6 +128,13 @@
                 @error('seasonal_label')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
             </div>
 
+            {{-- Sort Order --}}
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Urutan Tampil</label>
+                <input type="number" name="sort_order" value="{{ old('sort_order', $product->sort_order ?? 0) }}" min="0" class="input-field w-32">
+                <p class="text-xs text-gray-400 mt-1">Angka lebih kecil tampil lebih atas/depan. Isi 0 untuk urutan paling pertama.</p>
+            </div>
+
             <div class="flex gap-3 pt-4">
                 <button type="submit" class="btn-primary px-6 py-3 rounded-xl">{{ isset($product) ? 'Simpan Perubahan' : 'Tambah Produk' }}</button>
                 <a href="{{ route('admin.products.index') }}" class="btn-outline px-6 py-3 rounded-xl">Batal</a>
