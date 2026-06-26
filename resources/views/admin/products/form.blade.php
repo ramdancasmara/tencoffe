@@ -13,6 +13,17 @@
             @csrf
             @if(isset($product)) @method('PUT') @endif
 
+            @if($errors->any())
+                <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">
+                    <p class="font-semibold mb-1">Gagal menyimpan produk:</p>
+                    <ul class="list-disc ml-5 space-y-0.5">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Nama Produk *</label>
@@ -27,6 +38,7 @@
                             <option value="{{ $cat->id }}" {{ old('category_id', $product->category_id ?? '') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
                         @endforeach
                     </select>
+                    @error('category_id')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                 </div>
             </div>
 
@@ -45,6 +57,7 @@
             <div x-show="!hasVariants">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Harga *</label>
                 <input type="number" name="price" value="{{ old('price', $product->price ?? '') }}" class="input-field">
+                @error('price')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
             </div>
 
             {{-- Variant Prices --}}
@@ -52,10 +65,12 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Harga Hot 🔥</label>
                     <input type="number" name="price_hot" value="{{ old('price_hot', $product->price_hot ?? '') }}" class="input-field">
+                    @error('price_hot')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Harga Cold ❄️</label>
                     <input type="number" name="price_cold" value="{{ old('price_cold', $product->price_cold ?? '') }}" class="input-field">
+                    @error('price_cold')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                 </div>
             </div>
 
@@ -103,12 +118,14 @@
             <div x-show="isPromo">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Harga Promo</label>
                 <input type="number" name="promo_price" value="{{ old('promo_price', $product->promo_price ?? '') }}" class="input-field">
+                @error('promo_price')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
             </div>
 
             {{-- Seasonal Label --}}
             <div x-show="isSeasonal">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Label Seasonal</label>
                 <input type="text" name="seasonal_label" value="{{ old('seasonal_label', $product->seasonal_label ?? '') }}" placeholder="e.g., Ramadhan" class="input-field">
+                @error('seasonal_label')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
             </div>
 
             <div class="flex gap-3 pt-4">
