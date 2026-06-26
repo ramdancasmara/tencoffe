@@ -48,10 +48,18 @@ class CategoryController extends Controller
         return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil ditambahkan.');
     }
 
-    public function edit(Category $category)
+    public function edit(Request $request, Category $category)
     {
-        $categories = Category::ordered()->withCount('products')->get();
-        return view('admin.categories.index', compact('categories', 'category'));
+        $perPage = $request->input('per_page', 10);
+        $query = Category::ordered()->withCount('products');
+
+        if ($perPage === 'all') {
+            $categories = $query->get();
+        } else {
+            $categories = $query->paginate((int) $perPage)->withQueryString();
+        }
+
+        return view('admin.categories.index', compact('categories', 'category', 'perPage'));
     }
 
     public function update(Request $request, Category $category)

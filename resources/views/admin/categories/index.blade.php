@@ -2,6 +2,8 @@
 @section('page-title', 'Kategori')
 @section('content')
 
+@php($currentPerPage = $perPage ?? 10)
+
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
     {{-- Form --}}
     <div class="lg:col-span-1">
@@ -45,9 +47,9 @@
                     <label class="text-sm text-gray-500">Tampilkan:</label>
                     <select name="per_page" onchange="this.form.submit()" class="input-field w-auto text-sm py-1 px-2">
                         @foreach([10, 25, 50] as $pp)
-                            <option value="{{ $pp }}" {{ $perPage == $pp ? 'selected' : '' }}>{{ $pp }}</option>
+                            <option value="{{ $pp }}" {{ $currentPerPage == $pp ? 'selected' : '' }}>{{ $pp }}</option>
                         @endforeach
-                        <option value="all" {{ $perPage === 'all' ? 'selected' : '' }}>Semua</option>
+                        <option value="all" {{ $currentPerPage === 'all' ? 'selected' : '' }}>Semua</option>
                     </select>
                 </form>
             </div>
@@ -75,7 +77,7 @@
                 @endforelse
             </div>
 
-            @if($perPage !== 'all' && $categories instanceof \Illuminate\Pagination\LengthAwarePaginator)
+            @if($currentPerPage !== 'all' && $categories instanceof \Illuminate\Pagination\LengthAwarePaginator)
                 <div class="mt-4">{{ $categories->links() }}</div>
             @endif
         </div>
