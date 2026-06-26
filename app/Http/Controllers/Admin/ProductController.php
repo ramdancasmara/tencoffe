@@ -41,7 +41,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'description' => 'nullable|string',
-            'price' => 'required_without:has_variants|integer|min:0',
+            'price' => 'nullable|required_without:has_variants|integer|min:0',
             'has_variants' => 'boolean',
             'price_hot' => 'required_if:has_variants,1|nullable|integer|min:0',
             'price_cold' => 'required_if:has_variants,1|nullable|integer|min:0',
@@ -65,10 +65,11 @@ class ProductController extends Controller
         $data['promo_price'] = $request->is_promo ? $request->promo_price : null;
 
         if ($data['has_variants']) {
-            $data['price_hot'] = $request->price_hot;
-            $data['price_cold'] = $request->price_cold;
+            $data['price_hot'] = (int) $request->price_hot;
+            $data['price_cold'] = (int) $request->price_cold;
             $data['price'] = min($data['price_hot'], $data['price_cold']);
         } else {
+            $data['price'] = (int) $request->price;
             $data['price_hot'] = null;
             $data['price_cold'] = null;
         }
@@ -93,7 +94,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'description' => 'nullable|string',
-            'price' => 'required_without:has_variants|integer|min:0',
+            'price' => 'nullable|required_without:has_variants|integer|min:0',
             'has_variants' => 'boolean',
             'price_hot' => 'required_if:has_variants,1|nullable|integer|min:0',
             'price_cold' => 'required_if:has_variants,1|nullable|integer|min:0',
@@ -117,10 +118,11 @@ class ProductController extends Controller
         $data['promo_price'] = $request->is_promo ? $request->promo_price : null;
 
         if ($data['has_variants']) {
-            $data['price_hot'] = $request->price_hot;
-            $data['price_cold'] = $request->price_cold;
+            $data['price_hot'] = (int) $request->price_hot;
+            $data['price_cold'] = (int) $request->price_cold;
             $data['price'] = min($data['price_hot'], $data['price_cold']);
         } else {
+            $data['price'] = (int) $request->price;
             $data['price_hot'] = null;
             $data['price_cold'] = null;
         }
