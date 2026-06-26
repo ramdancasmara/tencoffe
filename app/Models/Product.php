@@ -70,7 +70,7 @@ class Product extends Model
 
     public function scopeOrdered($query)
     {
-        return $query->orderBy('sort_order');
+        return $query->orderBy('sort_order')->orderBy('name');
     }
 
     public function getDisplayPriceAttribute(): int
