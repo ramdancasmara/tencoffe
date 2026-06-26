@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\BestSellerController;
 use App\Http\Controllers\Admin\SpecialEventController;
 use App\Http\Controllers\Admin\SettingController;
 
@@ -52,6 +53,11 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->as('admin.')->group(funct
     Route::resource('categories', CategoryController::class)->except(['show']);
     Route::resource('orders', AdminOrderController::class)->only(['index', 'show', 'update', 'destroy']);
     Route::resource('banners', BannerController::class)->except(['show']);
+
+    Route::get('/best-sellers', [BestSellerController::class, 'index'])->name('best-sellers.index');
+    Route::post('/best-sellers/order', [BestSellerController::class, 'updateOrder'])->name('best-sellers.order');
+    Route::post('/best-sellers/{product}/add', [BestSellerController::class, 'add'])->name('best-sellers.add');
+    Route::post('/best-sellers/{product}/remove', [BestSellerController::class, 'remove'])->name('best-sellers.remove');
 
     Route::get('/special-event', [SpecialEventController::class, 'index'])->name('special-event.index');
     Route::post('/special-event/settings', [SpecialEventController::class, 'updateSettings'])->name('special-event.settings');
